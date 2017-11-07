@@ -1,0 +1,602 @@
+/*
+ * Code for class UC_UNICODE_CONSTANTS
+ */
+
+#include "eif_eiffel.h"
+#include "../E1/estructure.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern EIF_TYPED_VALUE F2307_30185(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30186(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30187(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30188(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30189(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30190(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30191(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30192(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30193(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30194(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30195(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30196(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30197(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30198(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30199(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30200(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30201(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30202(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30203(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30204(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30205(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30206(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30207(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30208(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30209(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30210(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30211(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30212(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30213(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30214(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30215(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30216(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30217(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30218(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30219(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30220(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30221(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30222(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30223(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30224(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30225(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30226(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30227(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30228(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30229(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30230(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30231(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30232(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30233(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30234(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30235(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30236(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30237(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30238(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30239(EIF_REFERENCE);
+extern EIF_TYPED_VALUE F2307_30240(EIF_REFERENCE);
+extern void EIF_Minit2307(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* {UC_UNICODE_CONSTANTS}.minimum_unicode_character_code */
+EIF_TYPED_VALUE F2307_30185 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 0L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.maximum_unicode_character_code */
+EIF_TYPED_VALUE F2307_30186 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 1114111L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.minimum_unicode_surrogate_code */
+EIF_TYPED_VALUE F2307_30187 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 55296L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.maximum_unicode_surrogate_code */
+EIF_TYPED_VALUE F2307_30188 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 57343L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.maximum_bmp_character_code */
+EIF_TYPED_VALUE F2307_30189 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 65535L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.minimum_ascii_character_code */
+EIF_TYPED_VALUE F2307_30190 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 0L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.maximum_ascii_character_code */
+EIF_TYPED_VALUE F2307_30191 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 127L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.minimum_ascii_character */
+EIF_TYPED_VALUE F2307_30192 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_CHAR8;
+	r.it_c1 = (EIF_CHARACTER_8) (EIF_CHARACTER_8) '\000';
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.maximum_ascii_character */
+EIF_TYPED_VALUE F2307_30193 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_CHAR8;
+	r.it_c1 = (EIF_CHARACTER_8) (EIF_CHARACTER_8) '';
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.unassigned_other_category */
+EIF_TYPED_VALUE F2307_30194 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 0L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.uppercase_letter_category */
+EIF_TYPED_VALUE F2307_30195 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 1L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.lowercase_letter_category */
+EIF_TYPED_VALUE F2307_30196 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 2L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.titlecase_letter_category */
+EIF_TYPED_VALUE F2307_30197 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 3L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.modifier_letter_category */
+EIF_TYPED_VALUE F2307_30198 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 4L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.other_letter_category */
+EIF_TYPED_VALUE F2307_30199 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 5L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.non_spacing_mark_category */
+EIF_TYPED_VALUE F2307_30200 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 6L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.spacing_combining_mark_category */
+EIF_TYPED_VALUE F2307_30201 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 7L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.enclosing_mark_category */
+EIF_TYPED_VALUE F2307_30202 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 8L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.decimal_digit_number_category */
+EIF_TYPED_VALUE F2307_30203 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 9L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.letter_number_category */
+EIF_TYPED_VALUE F2307_30204 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 10L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.other_number_category */
+EIF_TYPED_VALUE F2307_30205 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 11L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.connector_punctuation_category */
+EIF_TYPED_VALUE F2307_30206 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 12L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.dash_punctuation_category */
+EIF_TYPED_VALUE F2307_30207 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 13L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.open_punctuation_category */
+EIF_TYPED_VALUE F2307_30208 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 14L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.close_punctuation_category */
+EIF_TYPED_VALUE F2307_30209 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 15L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.initial_quote_punctuation_category */
+EIF_TYPED_VALUE F2307_30210 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 16L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.final_quote_punctuation_category */
+EIF_TYPED_VALUE F2307_30211 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 17L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.other_punctuation_category */
+EIF_TYPED_VALUE F2307_30212 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 18L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.math_symbol_category */
+EIF_TYPED_VALUE F2307_30213 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 19L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.currency_symbol_category */
+EIF_TYPED_VALUE F2307_30214 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 20L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.modifier_symbol_category */
+EIF_TYPED_VALUE F2307_30215 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 21L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.other_symbol_category */
+EIF_TYPED_VALUE F2307_30216 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 22L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.space_separator_category */
+EIF_TYPED_VALUE F2307_30217 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 23L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.line_separator_category */
+EIF_TYPED_VALUE F2307_30218 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 24L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.paragraph_separator_category */
+EIF_TYPED_VALUE F2307_30219 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 25L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.control_other_category */
+EIF_TYPED_VALUE F2307_30220 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 26L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.format_other_category */
+EIF_TYPED_VALUE F2307_30221 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 27L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.surrogate_other_category */
+EIF_TYPED_VALUE F2307_30222 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 28L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.private_other_category */
+EIF_TYPED_VALUE F2307_30223 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 29L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.canonical_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30224 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 0L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.font_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30225 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 1L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.no_break_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30226 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 2L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.initial_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30227 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 3L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.medial_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30228 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 4L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.final_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30229 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 5L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.isolated_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30230 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 6L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.encircled_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30231 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 7L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.superscript_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30232 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 8L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.subscript_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30233 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 9L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.vertical_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30234 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 10L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.wide_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30235 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 11L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.narrow_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30236 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 12L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.small_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30237 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 13L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.square_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30238 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 14L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.fraction_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30239 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 15L);
+	return r;
+}
+
+/* {UC_UNICODE_CONSTANTS}.compatibility_decomposition_mapping */
+EIF_TYPED_VALUE F2307_30240 (EIF_REFERENCE Current)
+{
+	EIF_TYPED_VALUE r;
+	r.type = SK_INT32;
+	r.it_i4 = (EIF_INTEGER_32) ((EIF_INTEGER_32) 16L);
+	return r;
+}
+
+void EIF_Minit2307 (void)
+{
+	GTCX
+}
+
+
+#ifdef __cplusplus
+}
+#endif
