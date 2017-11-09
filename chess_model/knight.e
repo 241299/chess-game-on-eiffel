@@ -21,7 +21,8 @@ create
 
 feature -- Implementation
 	can_move (to_position: CHESS_POSITION; a_chessboard: CHESSBOARD): BOOLEAN
-			-- A rook can move either by row or by column
+			-- A knight can move by column plus/minus 2 and row plus/minus 1
+			-- or by row plus/minus 2 and column plus/minus 1
 		do
 			Result := True -- Stub
 		end

@@ -144,15 +144,19 @@ feature {NONE} -- Movement observers
 
 			l_x := ax // tile_width
 			l_y := ay // tile_height
+			l_figure := chessboard.get_figure_at_xy (prev_x // tile_width, prev_y // tile_height)
 
 			if l_x > 0 -- Within borders
 			and then l_y > 0
 			and then l_x < 9
 			and then l_y < 9
+			and then attached l_figure
+			and then
+				l_figure.can_move (chessboard.get_position_at_xy (l_x, l_y), chessboard)
 			then
-				l_figure := chessboard.get_figure_at_xy (prev_x // tile_width, prev_y // tile_height)
 				if attached l_figure then
-					if abs_value(ax - prev_x) > tile_width // 2 or abs_value(ay - prev_y) > tile_height // 2
+					if
+						(abs_value(ax - prev_x) > tile_width // 2 or abs_value(ay - prev_y) > tile_height // 2)
 					then
 						chessboard.set_figure_at_position(chessboard.get_position_at_xy (l_x, l_y), l_figure)
 						l_figure.set_moved
@@ -166,7 +170,7 @@ feature {NONE} -- Movement observers
 					end
 					bind_figure_to_position (l_figure, chessboard.get_position_at_xy (l_x, l_y))
 				end
-			else -- Movement denied
+			else -- Movement denied (out of borders or the figure can't move)
 				l_figure := chessboard.get_figure_at_xy (prev_x // tile_width, prev_y // tile_height)
 				if attached l_figure then
 					bind_figure_to_position (l_figure, l_figure.position)

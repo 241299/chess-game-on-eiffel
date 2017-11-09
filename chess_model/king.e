@@ -21,7 +21,8 @@ create
 
 feature -- Implementation
 	can_move (to_position: CHESS_POSITION; a_chessboard: CHESSBOARD): BOOLEAN
-			-- A rook can move either by row or by column
+			-- A king can move in one of eight positions
+			-- Castling is not implemented
 		do
 			Result := True -- Stub
 		end

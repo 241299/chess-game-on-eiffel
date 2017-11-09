@@ -38,36 +38,40 @@ feature {NONE} -- Initialization
 FEATURE {NONE}
 	can_move (to_position: CHESS_POSITION; a_chessboard: CHESSBOARD): BOOLEAN
 	do
-		if color.is_equal(color.black)
-		then -- For black
-			if not moved then
-				if (to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 2))
-					or to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 1)))
-				then
-					Result := true
+		if to_position.y = 1 or to_position.y = 8 then
+			Result := false
+		else
+			if color.is_equal(color.black)
+			then -- For black
+				if not moved then
+					if (to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 2))
+						or to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 1)))
+					then
+						Result := true
+					end
+				else
+					if to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 1))
+					then
+						Result := true
+					end
 				end
-			else
-				if to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 1))
-				then
-					Result := true
+			else -- For white
+				if not moved then
+					if (to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 2))
+						or to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 1)))
+					then
+						Result := true
+					end
+				else
+					if to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 1))
+					then
+						Result := true
+					end
 				end
 			end
-		else -- For white
-			if not moved then
-				if (to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 2))
-					or to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 1)))
-				then
-					Result := true
-				end
-			else
-				if to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 1))
-				then
-					Result := true
-				end
+			if to_position.is_equal(position) then
+				Result := true
 			end
-		end
-		if to_position.is_equal(position) then
-			Result := true
 		end
 	end
 
