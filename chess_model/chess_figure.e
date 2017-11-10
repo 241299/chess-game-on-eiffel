@@ -1,8 +1,9 @@
 note
-	description: "Summary description for {CHESS_FIGURE}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "A model of typical chess figure."
+	author: "Marsel Shaihin"
+	date: "$Date: 2017/4/11 8:06:59 $"
+	revision: "0.1.1"
+	EIS: "name=Author", "protocol=URI", "src=http://www.t.me/phoenix_ru"
 
 deferred class
 	CHESS_FIGURE
@@ -17,6 +18,7 @@ feature -- Initialization
 	with_position(a_position: CHESS_POSITION)
 	do
 		position := a_position
+
 	end
 
 	with_color_position(a_color: CHESS_COLOR; a_position: CHESS_POSITION)
@@ -48,10 +50,15 @@ feature {CHESS_FIGURE, CHESSBOARD} -- Setters
 		position := create {CHESS_POSITION}.with_xy (an_x, an_y)
 	end
 
-feature
+feature -- Setter
 	set_moved
 	do
 		moved := true
+	end
+
+feature
+	get_possible_moves (in_chessboard: CHESSBOARD): ARRAYED_LIST[CHESS_POSITION]
+	deferred
 	end
 
 feature out: STRING

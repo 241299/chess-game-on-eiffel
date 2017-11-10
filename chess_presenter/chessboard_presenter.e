@@ -57,6 +57,7 @@ feature {NONE}
 	chessboard_figures: CHESSBOARD_PRESENTER_FIGURES -- Views of movable chess figures
 	chess_world: EV_MODEL_WORLD -- The main view where everything will be displayed
 	chess_tiles_highlighted: ARRAYED_LIST[CHESS_TILE] -- The array of currently highlighted tiles
+	number_captured: INTEGER -- How many figures are now captured?
 
 feature -- State changers
 	notify_board_changed
@@ -136,42 +137,54 @@ feature {NONE} -- Movement observers
 			end
 		end
 
-		on_chess_figure_released(ax, ay, button: INTEGER; x_tilt, y_tilt, pressure: DOUBLE; a_screen_x, a_screen_y: INTEGER)
+		on_chess_figure_released (ax, ay, button: INTEGER; x_tilt, y_tilt, pressure: DOUBLE; a_screen_x, a_screen_y: INTEGER)
+			-- Observes and commits changes
 		local
 			l_figure: CHESS_FIGURE
-			l_x, l_y: INTEGER
+			l_new_x, l_new_y: INTEGER
 			l_figure_movable: FIGURE_MOVABLE
+			l_captured: BOOLEAN
 		do
 			chess_tiles_highlighted.do_all (agent remove_highlight_from_tile)
 			chess_tiles_highlighted.wipe_out
 
-			l_x := ax // tile_width
-			l_y := ay // tile_height
+			l_new_x := ax // tile_width
+			l_new_y := ay // tile_height
 			l_figure := chessboard.get_figure_at_xy (prev_x // tile_width, prev_y // tile_height)
 
-			if l_x > 0 -- Within borders
-			and then l_y > 0
-			and then l_x < 9
-			and then l_y < 9
+			if l_new_x > 0 -- Within borders of a chessboard
+			and then l_new_y > 0
+			and then l_new_x < 9
+			and then l_new_y < 9
 			and then attached l_figure
 			and then
-				l_figure.can_move (chessboard.get_position_at_xy (l_x, l_y), chessboard)
+				l_figure.can_move (chessboard.get_position_at_xy (l_new_x, l_new_y), chessboard)
 			then
 				if attached l_figure then
 					if
 						(abs_value(ax - prev_x) > tile_width // 2 or abs_value(ay - prev_y) > tile_height // 2)
 					then
-						chessboard.set_figure_at_position(chessboard.get_position_at_xy (l_x, l_y), l_figure)
+						l_captured := chessboard.set_figure_at_position(chessboard.get_position_at_xy (l_new_x, l_new_y), l_figure)
 						l_figure.set_moved
+
+						if l_captured then -- If there was a capture
+							l_figure_movable := chessboard_figures.figures.at(l_new_y).get(l_new_x)
+							if attached l_figure_movable then
+								l_figure_movable.set_point_position (tile_width * 10 + number_captured \\ 5 * tile_width // 2, tile_height * (number_captured // 5))
+								l_figure_movable.disable_move
+							end
+							number_captured := number_captured + 1
+						end
+
 						l_figure_movable := chessboard_figures.figures.at(prev_y // tile_height).get(prev_x // tile_width)
 						if attached l_figure_movable then
 							chessboard_figures
 								.figures
-								.at(l_y)
-								.set(l_x, l_figure_movable)
+								.at(l_new_y)
+								.set(l_new_x, l_figure_movable)
 						end
 					end
-					bind_figure_to_position (l_figure, chessboard.get_position_at_xy (l_x, l_y))
+					bind_figure_to_position (l_figure, chessboard.get_position_at_xy (l_new_x, l_new_y))
 				end
 			else -- Movement denied (out of borders or the figure can't move)
 				l_figure := chessboard.get_figure_at_xy (prev_x // tile_width, prev_y // tile_height)
@@ -198,8 +211,6 @@ feature {NONE} -- Movement observers
 					l_positions := chessboard.get_positions_where_figure_can_move (l_figure)
 					l_positions.do_all (agent highlight_tile_at_position)
 				end
-			else
-
 			end
 		end
 

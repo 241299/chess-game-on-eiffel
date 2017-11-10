@@ -92,23 +92,27 @@ feature -- Status setting
 	end
 
 feature -- Element change
-	set_figure_at_xy(an_x, an_y: INTEGER; a_figure: CHESS_FIGURE)
+	set_figure_at_xy(an_x, an_y: INTEGER; a_chess_figure: CHESS_FIGURE)
 	require
 		x_not_too_small: an_x > 0
 		x_not_too_big: an_x < 9
 		y_not_too_small: an_y > 0
 		y_not_too_big: an_y < 9
 	do
-		chess_matrix[an_y].chess_row[an_x].set_chess_figure (a_figure)
-		a_figure.set_position(chess_matrix[an_y].chess_row[an_x])
+		chess_matrix[an_y].chess_row[an_x].set_chess_figure (a_chess_figure)
+		a_chess_figure.set_position(chess_matrix[an_y].chess_row[an_x])
 	end
 
-	set_figure_at_position (a_position: CHESS_POSITION; a_chess_figure: CHESS_FIGURE)
+	set_figure_at_position (a_position: CHESS_POSITION; a_chess_figure: CHESS_FIGURE): BOOLEAN
 	require
 		move_is_valid: a_chess_figure.can_move (a_position, Current)
 	do
+		Result := false
 		a_chess_figure.position.set_chess_figure (Void)
 		a_chess_figure.set_position (a_position)
+		if attached a_position.chess_figure then
+			Result := true
+		end
 		a_position.set_chess_figure (a_chess_figure)
 	end
 
@@ -141,32 +145,12 @@ feature -- Getter
 		Result := chess_matrix[an_y].chess_row[an_x]
 	end
 
-	get_positions_where_figure_can_move(a_figure: CHESS_FIGURE): ARRAYED_LIST[CHESS_POSITION]
+	get_positions_where_figure_can_move (a_figure: CHESS_FIGURE): ARRAYED_LIST[CHESS_POSITION]
+		-- Gets a list of positions where figure can move
 	require
 		attached a_figure
-	local
-		i, j: INTEGER
 	do
-		create Result.make (64)
-		from
-			i := 1
-		until
-			i > 8
-		loop
-			from
-				j := 1
-			until
-				j > 8
-			loop
-				if
-					a_figure.can_move (chess_matrix[i].chess_row[j], Current)
-				then
-					Result.force(chess_matrix[i].chess_row[j])
-				end
-				j := j + 1
-			end
-			i := i + 1
-		end
+		Result := a_figure.get_possible_moves (Current)
 	end
 
 feature {NONE} -- Attributes

@@ -1,8 +1,8 @@
 note
-	description: "An object that can be dragged."
-	author: "Marsel"
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "A figure that can be dragged."
+	author: "Marsel Shaihin"
+	date: "04 Nov 2017"
+	revision: "0.1.1"
 
 class
 	FIGURE_MOVABLE
@@ -66,6 +66,13 @@ feature -- Status setting
 			pointer_motion_actions.extend (agent on_pointer_motion_on_world)
 			pointer_button_press_actions.extend (agent on_pointer_button_press_on_world)
 			pointer_button_release_actions.extend (agent on_pointer_button_release_on_world)
+		end
+
+	disable_move
+		do
+			pointer_motion_actions.wipe_out
+			pointer_button_press_actions.wipe_out
+			pointer_button_release_actions.wipe_out
 		end
 
 feature {ANY} -- Actions being executed on state change
