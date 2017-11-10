@@ -18,6 +18,8 @@ inherit
             all
         end
 
+create make_const
+
 feature -- Access
 
 	Image_folder: STRING = "images"
@@ -115,4 +117,7 @@ feature -- Access text fields
 
 	label_status_bar: STRING = "Status: waiting for user actions"
 
+feature -- Initialization
+	make_const
+	do end
 end

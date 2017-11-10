@@ -1,8 +1,8 @@
 note
 	description: "Summary description for {CHESSBOARD_PRESENTER}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	author: "Marsel Shaihin"
+	date: "05 Nov 2017"
+	revision: "0.0.1"
 
 class
 	CHESSBOARD_PRESENTER
@@ -16,6 +16,7 @@ feature {NONE} -- Initialization
 
 	with_chessboard_view(a_chessboard: CHESSBOARD; a_chess_world_view: EV_MODEL_WORLD)
 			-- Initialization for `Current'.
+			-- Links this presenter with a chessboard and a view where changes would be displayed
 		do
 			chessboard := a_chessboard
 			chess_world := a_chess_world_view
@@ -32,6 +33,8 @@ feature {NONE} -- Initialization
 		end
 
 	with_view(a_chess_world_view: EV_MODEL_WORLD)
+			-- Initialization for `Current'.
+			-- Creates default game and links itself to the view.
 		do
 			create chessboard
 			chessboard.init_default_game
@@ -49,11 +52,11 @@ feature {NONE} -- Initialization
 		end
 
 feature {NONE}
-	chessboard: CHESSBOARD
-	chessboard_tiles: CHESSBOARD_PRESENTER_TILES
-	chessboard_figures: CHESSBOARD_PRESENTER_FIGURES
-	chess_world: EV_MODEL_WORLD
-	chess_tiles_highlighted: ARRAYED_LIST[CHESS_TILE]
+	chessboard: CHESSBOARD -- The chessboard to interact with the figures
+	chessboard_tiles: CHESSBOARD_PRESENTER_TILES -- Views of highlightable chess tiles
+	chessboard_figures: CHESSBOARD_PRESENTER_FIGURES -- Views of movable chess figures
+	chess_world: EV_MODEL_WORLD -- The main view where everything will be displayed
+	chess_tiles_highlighted: ARRAYED_LIST[CHESS_TILE] -- The array of currently highlighted tiles
 
 feature -- State changers
 	notify_board_changed
@@ -219,13 +222,13 @@ feature {NONE} -- Highlighters
 		l_x := chessboard.get_xy_of_position (a_position).at (1)
 		l_y := chessboard.get_xy_of_position (a_position).at (2)
 		l_tile := chessboard_tiles.get_tile_at (l_x, l_y)
-		l_tile.set_background_color (color_highlighted)
+		l_tile.highlight
 		chess_tiles_highlighted.force (l_tile)
 	end
 
-	remove_highlight_from_tile(a_tile: CHESS_TILE)
+	remove_highlight_from_tile (a_tile: CHESS_TILE)
 	do
-		a_tile.set_background_color (a_tile.primary_color)
+		a_tile.unhighlight
 	end
 
 feature {NONE} -- Getter

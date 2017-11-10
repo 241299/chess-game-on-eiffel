@@ -1,8 +1,8 @@
 note
 	description: "A pawn figure model."
-	author: "Marsel"
-	date: "$Date$"
-	revision: "$Revision$"
+	author: "Marsel Shaihin"
+	date: "04 Nov 2017"
+	revision: "0.0.1"
 
 class
 	PAWN
@@ -37,41 +37,64 @@ feature {NONE} -- Initialization
 
 FEATURE {NONE}
 	can_move (to_position: CHESS_POSITION; a_chessboard: CHESSBOARD): BOOLEAN
+	local
+		l_figure: CHESS_FIGURE
+		l_m: INTEGER -- Multiplier to invert checking for black and
 	do
-		if to_position.y = 1 or to_position.y = 8 then
+		if color.is_equal(color.black) then -- Defining invertor logic
+			l_m := 1
+		else
+			l_m := -1
+		end
+
+		if position.y = 1 or position.y = 8 or position.is_equal(to_position) then
 			Result := false
 		else
-			if color.is_equal(color.black)
-			then -- For black
-				if not moved then
-					if (to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 2))
-						or to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 1)))
-					then
-						Result := true
-					end
-				else
-					if to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 1))
-					then
-						Result := true
-					end
+			l_figure := to_position.chess_figure
+			if attached l_figure then
+				if
+					abs_value(to_position.x - position.x) = 1
+					and then to_position.y - position.y = 1 * l_m
+					and then not color.is_equal(l_figure.color)
+				then
+					Result := true
 				end
-			else -- For white
-				if not moved then
-					if (to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 2))
-						or to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 1)))
-					then
-						Result := true
-					end
-				else
-					if to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 1))
-					then
-						Result := true
-					end
-				end
-			end
-			if to_position.is_equal(position) then
+			elseif
+				to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 1 * l_m))
+			then
 				Result := true
+			elseif
+				not moved then
+					if
+						to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y + 2 * l_m))
+						and then not attached a_chessboard.get_figure_at_xy (position.x, position.y + 1 * l_m)
+						then
+						Result := True
+					end
 			end
+--		else -- For white
+--			if not moved then
+--				if (to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 2))
+--					or to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 1)))
+--				then
+--					Result := true
+--				end
+--			else
+--				if to_position.is_equal(a_chessboard.get_position_at_xy(position.x, position.y - 1))
+--				then
+--					Result := true
+--				end
+--			end
+		end
+	end
+
+feature -- Supplementary
+	abs_value (a_number: INTEGER): INTEGER
+	do
+		if a_number > 0 then
+			Result := a_number
+		else
+			Result := -a_number
 		end
 	end
 

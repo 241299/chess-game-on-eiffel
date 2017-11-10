@@ -107,6 +107,7 @@ feature -- Element change
 	require
 		move_is_valid: a_chess_figure.can_move (a_position, Current)
 	do
+		a_chess_figure.position.set_chess_figure (Void)
 		a_chess_figure.set_position (a_position)
 		a_position.set_chess_figure (a_chess_figure)
 	end

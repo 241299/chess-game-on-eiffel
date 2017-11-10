@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {CHESS_POSITION}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Chess position. Used to build a chessboard. Stores pointer to a figure inside."
+	author: "Marsel Shaihin"
+	date: "04 Nov 2017"
+	revision: "0.0.1"
 
 class
 	CHESS_POSITION
@@ -25,10 +25,10 @@ feature -- Initialization
 feature {CHESS_FIGURE, CHESSBOARD} -- Access
 	x: INTEGER
 	y: INTEGER
-	chess_figure: detachable CHESS_FIGURE
+	chess_figure: detachable CHESS_FIGURE -- Figure standing in this position. May be Void, if position is empty
 
-feature {CHESSBOARD, CHESS_ROW} -- Setter
-	set_chess_figure(a_figure: CHESS_FIGURE)
+feature {CHESSBOARD, CHESS_ROW} -- Setter for figure
+	set_chess_figure(a_figure: detachable CHESS_FIGURE)
 	do
 		chess_figure := a_figure
 	end
@@ -44,7 +44,7 @@ feature -- Getter
 		Result := not attached chess_figure
 	end
 
-feature out: STRING
+feature out: STRING -- Beautifies output of position
 	do
 		Result := ""
 		inspect x
@@ -59,5 +59,4 @@ feature out: STRING
 		else end
 		Result.append(y.out)
 	end
-
 end

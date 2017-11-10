@@ -1,14 +1,17 @@
 note
-	description: "Summary description for {CHESS_TILE}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "A tile on the chessboard to be displayed."
+	author: "Marsel Shaihin"
+	date: "04 Nov 2017"
+	revision: "0.0.1"
 
 class
 	CHESS_TILE
 
 inherit
 	EV_MODEL_RECTANGLE
+		select default_create end
+	CHESS_GAME_CONSTANTS
+		rename default_create as make_c end
 
 create
 	make_with_color_positions, make_with_coordinates
@@ -28,8 +31,17 @@ feature {NONE} -- Initialization
 		set_background_color(primary_color)
 	end
 
+feature -- State changers
+	highlight
+	do
+		set_background_color (color_highlighted)
+	end
+
+	unhighlight
+	do
+		set_background_color (primary_color)
+	end
+
 feature {ANY} -- Constants
-	tile_width: INTEGER = 60
-	tile_height: INTEGER = 60
 	primary_color: EV_COLOR
 end
