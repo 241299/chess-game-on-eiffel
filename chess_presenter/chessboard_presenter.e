@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {CHESSBOARD_PRESENTER}."
+	description: "A chessboard presenter. Connects View with Model."
 	author: "Marsel Shaihin"
-	date: "05 Nov 2017"
-	revision: "0.0.1"
+	date: "$Date: 2017/11/5 17:32:00 $"
+	revision: "0.1.1"
 
 class
 	CHESSBOARD_PRESENTER

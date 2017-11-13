@@ -1,8 +1,8 @@
 note
 	description: "A rook figure model."
-	author: "Marsel"
-	date: "$Date$"
-	revision: "$Revision$"
+	author: "Marsel Shaihin"
+	date: "$Date: 2017/11/5 17:18:00 $"
+	revision: "0.1.1"
 
 class
 	ROOK

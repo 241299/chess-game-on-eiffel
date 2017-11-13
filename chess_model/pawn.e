@@ -1,7 +1,7 @@
 note
 	description: "A pawn figure model."
 	author: "Marsel Shaihin"
-	date: "04 Nov 2017"
+	date: "$Date: 2017/11/4 8:11:59 $"
 	revision: "0.0.1"
 
 class

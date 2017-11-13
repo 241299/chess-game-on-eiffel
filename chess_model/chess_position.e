@@ -1,8 +1,8 @@
 note
 	description: "Chess position. Used to build a chessboard. Stores pointer to a figure inside."
 	author: "Marsel Shaihin"
-	date: "04 Nov 2017"
-	revision: "0.0.1"
+	date: "$Date: 2017/11/4 8:06:00 $"
+	revision: "0.1.1"
 
 class
 	CHESS_POSITION
@@ -57,6 +57,6 @@ feature out: STRING -- Beautifies output of position
 		when 7 then Result.append("G")
 		when 8 then Result.append("H")
 		else end
-		Result.append(y.out)
+		Result.append((8 - y + 1).out)
 	end
 end
