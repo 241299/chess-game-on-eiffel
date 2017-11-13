@@ -62,6 +62,7 @@ feature {NONE} -- Move features
 feature -- Status setting
 
 	enable_move
+			-- Enables movements
 		do
 			pointer_motion_actions.extend (agent on_pointer_motion_on_world)
 			pointer_button_press_actions.extend (agent on_pointer_button_press_on_world)
@@ -69,6 +70,7 @@ feature -- Status setting
 		end
 
 	disable_move
+			-- Disables movements. Detaches all the subscribers
 		do
 			pointer_motion_actions.wipe_out
 			pointer_button_press_actions.wipe_out

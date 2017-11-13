@@ -252,7 +252,7 @@ feature {NONE} -- Implementation
 
 			create chess_world
 
-			create chessboard_presenter.with_view (chess_world)
+			create chessboard_presenter.with_view (chess_world, Current)
 			print("New game created successfully!%N")
 
 			create l_buffer.make_with_size (Window_width, Window_height)
@@ -267,6 +267,16 @@ feature {NONE} -- Implementation
 		ensure
 			main_container_created: main_container /= Void
 		end
+
+feature -- Request win dialog
+	request_win (a_winner: STRING)
+	local
+		win_dialog: WIN_DIALOG
+	do
+		create win_dialog.with_winner(a_winner)
+		win_dialog.show_modal_to_window (Current)
+	end
+
 
 feature {NONE} -- Implementation / Constants
 

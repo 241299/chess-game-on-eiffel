@@ -1,7 +1,7 @@
 note
 	description: "A knight chess figure."
 	author: "Marsel Shaihin"
-	date: "$Date$"
+	date: "$Date: 2017/11/6 09:01:30 $"
 	revision: "0.1.1"
 
 class

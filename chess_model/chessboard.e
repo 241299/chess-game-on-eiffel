@@ -1,8 +1,8 @@
 note
-	description: "A model of chessboard."
-	author: "Marsel"
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "A model of chessboard. Used as interface to interact with presenter"
+	author: "Marsel Shaihin"
+	date: "$Date: 2017/11/5 11:04:00 $"
+	revision: "0.1.1"
 
 class
 	CHESSBOARD
@@ -110,13 +110,28 @@ feature -- Element change
 		Result := false
 		a_chess_figure.position.set_chess_figure (Void)
 		a_chess_figure.set_position (a_position)
-		if attached a_position.chess_figure then
+		if attached a_position.chess_figure as another_figure then
+			request_capture (another_figure)
 			Result := true
 		end
 		a_position.set_chess_figure (a_chess_figure)
 	end
 
-feature -- Getter
+	request_capture (a_captured: CHESS_FIGURE)
+		-- Ends game if needed
+	do
+		if a_captured.generator.is_equal ("KING") then
+			if
+				a_captured.color.is_equal (a_captured.color.white)
+			then
+				winner := a_captured.color.black
+			else
+				winner := a_captured.color.white
+			end
+		end
+	end
+
+feature -- Getters
 	get_figure_at_xy(an_x, an_y: INTEGER): detachable CHESS_FIGURE
 	require
 		x_not_too_small: an_x > 0
@@ -152,6 +167,8 @@ feature -- Getter
 	do
 		Result := a_figure.get_possible_moves (Current)
 	end
+
+	winner: detachable CHESS_COLOR
 
 feature {NONE} -- Attributes
 	chess_matrix: ARRAY[CHESS_ROW]

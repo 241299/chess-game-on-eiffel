@@ -429,3 +429,8 @@ APPLICATION         make_and_launch @2
 APPLICATION         root's creation                                     
 <000000000664D5A8>                         Routine failure.              Exit
 -------------------------------------------------------------------------------
+Catcall detected in {TYPE}.is_equal for arg#1: expected TYPE [BISHOP] but got TYPE [!KING]
+Catcall detected in {TYPE}.is_equal for arg#1: expected TYPE [BISHOP] but got TYPE [!KING]
+Catcall detected in {TYPE}.is_equal for arg#1: expected TYPE [BISHOP] but got TYPE [!KING]
+Catcall detected in {TYPE}.is_equal for arg#1: expected TYPE [PAWN] but got TYPE [!KING]
+Catcall detected in {PROCEDURE}.call for arg#1: expected separate TUPLE [!FIGURE_MOVABLE] but got TUPLE [FIGURE_MOVABLE]

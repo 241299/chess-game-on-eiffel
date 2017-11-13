@@ -1,6 +1,6 @@
 note
-	description: "Summary description for {CHESSBOARD_PRESENTER_FIGURES}."
-	author: ""
+	description: "Operates with images."
+	author: "Marsel Shaihin"
 	date: "$Date$"
 	revision: "$Revision$"
 

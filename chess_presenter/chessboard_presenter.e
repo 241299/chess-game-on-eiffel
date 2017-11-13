@@ -14,12 +14,13 @@ create
 
 feature {NONE} -- Initialization
 
-	with_chessboard_view(a_chessboard: CHESSBOARD; a_chess_world_view: EV_MODEL_WORLD)
+	with_chessboard_view(a_chessboard: CHESSBOARD; a_chess_world_view: EV_MODEL_WORLD; a_window: MAIN_WINDOW)
 			-- Initialization for `Current'.
 			-- Links this presenter with a chessboard and a view where changes would be displayed
 		do
 			chessboard := a_chessboard
 			chess_world := a_chess_world_view
+			main_window := a_window
 
 			create chess_tiles_highlighted.make (32)
 
@@ -32,13 +33,14 @@ feature {NONE} -- Initialization
 			set_figures_from_chessboard (chessboard)
 		end
 
-	with_view(a_chess_world_view: EV_MODEL_WORLD)
+	with_view(a_chess_world_view: EV_MODEL_WORLD; a_window: MAIN_WINDOW)
 			-- Initialization for `Current'.
 			-- Creates default game and links itself to the view.
 		do
 			create chessboard
 			chessboard.init_default_game
 			chess_world := a_chess_world_view
+			main_window := a_window
 
 			create chess_tiles_highlighted.make (32)
 
@@ -58,12 +60,9 @@ feature {NONE}
 	chess_world: EV_MODEL_WORLD -- The main view where everything will be displayed
 	chess_tiles_highlighted: ARRAYED_LIST[CHESS_TILE] -- The array of currently highlighted tiles
 	number_captured: INTEGER -- How many figures are now captured?
+	main_window: MAIN_WINDOW -- To interact with dialogs
 
 feature -- State changers
-	notify_board_changed
-		do
-			on_board_changed
-		end
 
 	set_figures_from_chessboard(a_chessboard: CHESSBOARD)
 		local
@@ -168,6 +167,9 @@ feature {NONE} -- Movement observers
 						l_figure.set_moved
 
 						if l_captured then -- If there was a capture
+							if attached chessboard.winner as winner then
+								on_game_end (winner)
+							end
 							l_figure_movable := chessboard_figures.figures.at(l_new_y).get(l_new_x)
 							if attached l_figure_movable then
 								l_figure_movable.set_point_position (tile_width * 10 + number_captured \\ 5 * tile_width // 2, tile_height * (number_captured // 5))
@@ -223,7 +225,6 @@ feature {NONE} -- Movement observers
 			end
 		end
 
-
 feature {NONE} -- Highlighters
 	highlight_tile_at_position(a_position: CHESS_POSITION)
 	local
@@ -240,6 +241,25 @@ feature {NONE} -- Highlighters
 	remove_highlight_from_tile (a_tile: CHESS_TILE)
 	do
 		a_tile.unhighlight
+	end
+
+feature {NONE} -- On game end
+	on_game_end (a_color: CHESS_COLOR)
+	local
+		l_winner: STRING
+	do
+		if a_color.is_equal (a_color.white) then
+			l_winner := "White"
+		else
+			l_winner := "Black"
+		end
+		main_window.request_win (l_winner)
+		chessboard_figures.figures.do_all (agent freeze_row)
+	end
+
+	freeze_row (a_row: CHESSBOARD_PRESENTER_FIGURES_ROW)
+	do
+		a_row.freeze_all
 	end
 
 feature {NONE} -- Getter
@@ -323,11 +343,4 @@ feature {NONE} -- Attributes
 	chess_figure_kingb: 	EV_PIXMAP
 	chess_figure_queenw: 	EV_PIXMAP
 	chess_figure_queenb: 	EV_PIXMAP
-
-
-feature {NONE} -- Implementation
-	on_board_changed
-	do
-		-- Stub
-	end
 end

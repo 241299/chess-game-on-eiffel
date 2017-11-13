@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {CHESSBOARD_PRESENTER_FIGURES_ROW}."
-	author: ""
+	description: "Operates with the images on the row."
+	author: "Marsel Shaihin"
 	date: "$Date$"
-	revision: "$Revision$"
+	revision: "0.1.1"
 
 class
 	CHESSBOARD_PRESENTER_FIGURES_ROW
@@ -32,6 +32,16 @@ feature {CHESSBOARD_PRESENTER_FIGURES, CHESSBOARD_PRESENTER} -- Interface
 	set(an_x: INTEGER; a_figure: FIGURE_MOVABLE)
 	do
 		row_figures.force (a_figure, an_x)
+	end
+
+	freeze_all
+	do
+		row_figures.do_all (agent freeze_figure_movable)
+	end
+
+	freeze_figure_movable (a_figure: detachable FIGURE_MOVABLE)
+	do
+		if attached a_figure then a_figure.disable_move end
 	end
 
 feature {NONE}
