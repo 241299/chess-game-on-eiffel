@@ -21,9 +21,9 @@
 		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel.ecf"/>
 		<library name="vision2" location="$ISE_LIBRARY\library\vision2\vision2.ecf"/>
 		<cluster name="root_cluster" location=".\" recursive="true">
-			<cluster name="chess_model" location="c:\eiffel\chess_model\"/>
-			<cluster name="chess_view" location="C:\eiffel\chess_view\"/>
-			<cluster name="chess_presenter" location="C:\eiffel\chess_presenter\" recursive="true">
+			<cluster name="chess_model" location="c:\eiffel\chessgame\chess_model\"/>
+			<cluster name="chess_view" location="C:\eiffel\chessgame\chess_view\"/>
+			<cluster name="chess_presenter" location="C:\eiffel\chessgame\chess_presenter\" recursive="true">
 				<note>
 					<eis name="Unnamed"/>
 				</note>

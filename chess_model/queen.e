@@ -13,18 +13,13 @@ RENAME
 	short_name as prev_s_name,
 	full_name as prev_f_name
 redefine
-	can_move, out, get_possible_moves
+	out, get_possible_moves
 end
 
 create
 	with_color_position
 
 feature -- Implementation
-	can_move (to_position: CHESS_POSITION; a_chessboard: CHESSBOARD): BOOLEAN
-			-- A rook can move either by row or by column
-		do
-			Result := get_possible_moves (a_chessboard).has (to_position)
-		end
 
 	get_possible_moves (in_chessboard: CHESSBOARD): ARRAYED_LIST[CHESS_POSITION]
 		-- A queen can move by row, by column or by diagonals
@@ -38,7 +33,7 @@ feature -- Implementation
 		from i := position.x + 1
 		until i > 8 or l_obst_found
 		loop
-			if attached in_chessboard.get_figure_at_xy (i, position.y) as l_another_figure then
+			if attached in_chessboard [i, position.y] as l_another_figure then
 				if not l_another_figure.color.is_equal (color) then
 					Result.force (l_another_figure.position)
 				end
@@ -56,7 +51,7 @@ feature -- Implementation
 		from i := 1
 		until i + position.x > 8 or i + position.y > 8 or l_obst_found
 		loop
-			if attached in_chessboard.get_figure_at_xy (i + position.x, i + position.y) as l_another_figure then
+			if attached in_chessboard [i + position.x, i + position.y] as l_another_figure then
 				if not l_another_figure.color.is_equal (color) then
 					Result.force (l_another_figure.position)
 				end
@@ -74,7 +69,7 @@ feature -- Implementation
 		from i := position.x - 1
 		until i < 1 or l_obst_found
 		loop
-			if attached in_chessboard.get_figure_at_xy (i, position.y) as l_another_figure then
+			if attached in_chessboard [i, position.y] as l_another_figure then
 				if not l_another_figure.color.is_equal (color) then
 					Result.force (l_another_figure.position)
 				end
@@ -92,7 +87,7 @@ feature -- Implementation
 		from i := 1
 		until position.x - i < 1 or i + position.y > 8 or l_obst_found
 		loop
-			if attached in_chessboard.get_figure_at_xy (position.x - i, i + position.y) as l_another_figure then
+			if attached in_chessboard [position.x - i, i + position.y] as l_another_figure then
 				if not l_another_figure.color.is_equal (color) then
 					Result.force (l_another_figure.position)
 				end
@@ -110,7 +105,7 @@ feature -- Implementation
 		from i := position.y - 1
 		until i < 1 or l_obst_found
 		loop
-			if attached in_chessboard.get_figure_at_xy (position.x, i) as l_another_figure then
+			if attached in_chessboard [position.x, i] as l_another_figure then
 				if not l_another_figure.color.is_equal (color) then
 					Result.force (l_another_figure.position)
 				end
@@ -128,7 +123,7 @@ feature -- Implementation
 		from i := 1
 		until position.x - i < 1 or position.y - i < 1 or l_obst_found
 		loop
-			if attached in_chessboard.get_figure_at_xy (position.x - i, position.y - i) as l_another_figure then
+			if attached in_chessboard [position.x - i, position.y - i] as l_another_figure then
 				if not l_another_figure.color.is_equal (color) then
 					Result.force (l_another_figure.position)
 				end
@@ -146,7 +141,7 @@ feature -- Implementation
 		from i := position.y + 1
 		until i > 8 or l_obst_found
 		loop
-			if attached in_chessboard.get_figure_at_xy (position.x, i) as l_another_figure then
+			if attached in_chessboard [position.x, i] as l_another_figure then
 				if not l_another_figure.color.is_equal (color) then
 					Result.force (l_another_figure.position)
 				end
@@ -164,7 +159,7 @@ feature -- Implementation
 		from i := 1
 		until position.x + i > 8 or position.y - i < 1 or l_obst_found
 		loop
-			if attached in_chessboard.get_figure_at_xy (position.x + i, position.y - i) as l_another_figure then
+			if attached in_chessboard [position.x + i, position.y - i] as l_another_figure then
 				if not l_another_figure.color.is_equal (color) then
 					Result.force (l_another_figure.position)
 				end

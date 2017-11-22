@@ -31,9 +31,10 @@ feature {NONE} -- Initialization
 			init_chess_figures
 
 			set_figures_from_chessboard (chessboard)
+			chessboard.subscribe (Current)
 		end
 
-	with_view(a_chess_world_view: EV_MODEL_WORLD; a_window: MAIN_WINDOW)
+	with_view (a_chess_world_view: EV_MODEL_WORLD; a_window: MAIN_WINDOW)
 			-- Initialization for `Current'.
 			-- Creates default game and links itself to the view.
 		do
@@ -51,6 +52,7 @@ feature {NONE} -- Initialization
 
 			init_chess_figures
 			set_figures_from_chessboard (chessboard)
+			chessboard.subscribe (Current)
 		end
 
 feature {NONE}
@@ -64,7 +66,7 @@ feature {NONE}
 
 feature -- State changers
 
-	set_figures_from_chessboard(a_chessboard: CHESSBOARD)
+	set_figures_from_chessboard (a_chessboard: CHESSBOARD)
 		local
 			i, j: INTEGER
 			a_figure: FIGURE_MOVABLE
@@ -109,17 +111,41 @@ feature -- State changers
 			end
 		end
 
+	on_castling (a_rook: CHESS_FIGURE; new_pos_rook: CHESS_POSITION)
+		local
+			l_old_x, l_y, l_new_x: INTEGER
+		do
+			l_old_x := a_rook.position.x
+			l_new_x := new_pos_rook.x
+			l_y := a_rook.position.y
+
+			if
+				attached chessboard_figures.figures.at (l_y).get(l_old_x)
+				as l_figure_movable
+			then
+				chessboard_figures
+					.figures
+					.at(l_y)
+					.set(l_new_x, l_figure_movable)
+
+				l_figure_movable.set_point_position (tile_width * 10 + number_captured \\ 5 * tile_width // 2, tile_height * (number_captured // 5))
+			end
+
+			bind_figure_to_position (a_rook, new_pos_rook)
+			print ("Castled%NRook: " + a_rook.position.out + "%N")
+		end
+
 feature {NONE} -- Movement observers
 
-		prev_x, prev_y: INTEGER
+	prev_x, prev_y: INTEGER
 
-		bind_figure_to_position (a_chess_figure: CHESS_FIGURE; a_position: CHESS_POSITION)
+	bind_figure_to_position (a_chess_figure: CHESS_FIGURE; a_position: CHESS_POSITION)
 		local
 			l_array: ARRAY[INTEGER]
 			l_figure: FIGURE_MOVABLE
 		do
 			if (attached chessboard and attached a_position) then
-				l_array := chessboard.get_xy_of_position(a_position)
+				l_array := chessboard.get_xy_of_position (a_position)
 				if attached l_array
 				then
 					l_figure := chessboard_figures
@@ -128,7 +154,7 @@ feature {NONE} -- Movement observers
 						.get (l_array[1])
 
 					if
-					attached l_figure
+						attached l_figure
 					then
 						l_figure.set_point_position (tile_width * l_array[1] + abs_value(l_figure.width - tile_width) // 2, tile_height * l_array[2])
 					end
@@ -136,7 +162,7 @@ feature {NONE} -- Movement observers
 			end
 		end
 
-		on_chess_figure_released (ax, ay, button: INTEGER; x_tilt, y_tilt, pressure: DOUBLE; a_screen_x, a_screen_y: INTEGER)
+	on_chess_figure_released (ax, ay, button: INTEGER; x_tilt, y_tilt, pressure: DOUBLE; a_screen_x, a_screen_y: INTEGER)
 			-- Observes and commits changes
 		local
 			l_figure: CHESS_FIGURE
@@ -159,35 +185,38 @@ feature {NONE} -- Movement observers
 			and then
 				l_figure.can_move (chessboard.get_position_at_xy (l_new_x, l_new_y), chessboard)
 			then
-				if attached l_figure then
-					if
-						(abs_value(ax - prev_x) > tile_width // 2 or abs_value(ay - prev_y) > tile_height // 2)
-					then
-						l_captured := chessboard.set_figure_at_position(chessboard.get_position_at_xy (l_new_x, l_new_y), l_figure)
-						l_figure.set_moved
+				if
+					(abs_value(ax - prev_x) > tile_width // 2 or abs_value(ay - prev_y) > tile_height // 2)
+				then -- There certainly was a move
+					l_captured := chessboard.set_figure_at_position (chessboard.get_position_at_xy (l_new_x, l_new_y), l_figure)
 
-						if l_captured then -- If there was a capture
-							if attached chessboard.winner as winner then
-								on_game_end (winner)
-							end
-							l_figure_movable := chessboard_figures.figures.at(l_new_y).get(l_new_x)
-							if attached l_figure_movable then
-								l_figure_movable.set_point_position (tile_width * 10 + number_captured \\ 5 * tile_width // 2, tile_height * (number_captured // 5))
-								l_figure_movable.disable_move
-							end
-							number_captured := number_captured + 1
+					if l_captured then -- If there was a capture
+						if attached chessboard.winner as winner then
+							on_game_end (winner)
 						end
-
-						l_figure_movable := chessboard_figures.figures.at(prev_y // tile_height).get(prev_x // tile_width)
+						l_figure_movable := chessboard_figures.figures.at (l_new_y).get(l_new_x)
 						if attached l_figure_movable then
-							chessboard_figures
-								.figures
-								.at(l_new_y)
-								.set(l_new_x, l_figure_movable)
+							l_figure_movable.set_point_position (tile_width * 10 + number_captured \\ 5 * tile_width // 2, tile_height * (number_captured // 5))
+							l_figure_movable.disable_move
 						end
+						number_captured := number_captured + 1
 					end
-					bind_figure_to_position (l_figure, chessboard.get_position_at_xy (l_new_x, l_new_y))
+
+					chessboard.request_color_change
+
+					-- Change the view
+					l_figure_movable := chessboard_figures.figures.at(prev_y // tile_height).get(prev_x // tile_width)
+					if attached l_figure_movable then
+						chessboard_figures
+							.figures
+							.at(l_new_y)
+							.set(l_new_x, l_figure_movable)
+					end
 				end
+
+				-- Update viewed board
+				-- No matter was move legal or not, figure will stay on correct place
+				bind_figure_to_position (l_figure, chessboard.get_position_at_xy (l_new_x, l_new_y))
 			else -- Movement denied (out of borders or the figure can't move)
 				l_figure := chessboard.get_figure_at_xy (prev_x // tile_width, prev_y // tile_height)
 				if attached l_figure then
@@ -196,7 +225,7 @@ feature {NONE} -- Movement observers
 			end
 		end
 
-		on_chess_figure_pressed(ax, ay, button: INTEGER; x_tilt, y_tilt, pressure: DOUBLE; a_screen_x, a_screen_y: INTEGER)
+	on_chess_figure_pressed (ax, ay, button: INTEGER; x_tilt, y_tilt, pressure: DOUBLE; a_screen_x, a_screen_y: INTEGER)
 		local
 			l_figure: CHESS_FIGURE
 			l_positions: ARRAYED_LIST[CHESS_POSITION]
@@ -208,7 +237,7 @@ feature {NONE} -- Movement observers
 			and then (ax // tile_height) < 9
 			and then (ay // tile_width) < 9
 			then
-				l_figure := chessboard.get_figure_at_xy (ax // tile_width, ay // tile_height)
+				l_figure := chessboard [ax // tile_width, ay // tile_height]
 				if attached l_figure then
 					l_positions := chessboard.get_positions_where_figure_can_move (l_figure)
 					l_positions.do_all (agent highlight_tile_at_position)
@@ -216,7 +245,7 @@ feature {NONE} -- Movement observers
 			end
 		end
 
-		abs_value(a_number: INTEGER): INTEGER
+	abs_value(a_number: INTEGER): INTEGER
 		do
 			if a_number > 0 then
 				Result := a_number
@@ -227,108 +256,109 @@ feature {NONE} -- Movement observers
 
 feature {NONE} -- Highlighters
 	highlight_tile_at_position(a_position: CHESS_POSITION)
-	local
-		l_x, l_y: INTEGER
-		l_tile: CHESS_TILE
-	do
-		l_x := chessboard.get_xy_of_position (a_position).at (1)
-		l_y := chessboard.get_xy_of_position (a_position).at (2)
-		l_tile := chessboard_tiles.get_tile_at (l_x, l_y)
-		l_tile.highlight
-		chess_tiles_highlighted.force (l_tile)
-	end
+			-- Highlights tile at given position
+		local
+			l_x, l_y: INTEGER
+			l_tile: CHESS_TILE
+		do
+			l_x := chessboard.get_xy_of_position (a_position).at (1)
+			l_y := chessboard.get_xy_of_position (a_position).at (2)
+			l_tile := chessboard_tiles.get_tile_at (l_x, l_y)
+			l_tile.highlight
+			chess_tiles_highlighted.force (l_tile)
+		end
 
 	remove_highlight_from_tile (a_tile: CHESS_TILE)
-	do
-		a_tile.unhighlight
-	end
+		do
+			a_tile.unhighlight
+		end
 
 feature {NONE} -- On game end
 	on_game_end (a_color: CHESS_COLOR)
-	local
-		l_winner: STRING
-	do
-		if a_color.is_equal (a_color.white) then
-			l_winner := "White"
-		else
-			l_winner := "Black"
+		local
+			l_winner: STRING
+		do
+			if a_color.is_equal (a_color.white) then
+				l_winner := "White"
+			else
+				l_winner := "Black"
+			end
+			main_window.request_win (l_winner)
+			chessboard_figures.figures.do_all (agent freeze_row)
 		end
-		main_window.request_win (l_winner)
-		chessboard_figures.figures.do_all (agent freeze_row)
-	end
 
 	freeze_row (a_row: CHESSBOARD_PRESENTER_FIGURES_ROW)
-	do
-		a_row.freeze_all
-	end
+		do
+			a_row.freeze_all
+		end
 
 feature {NONE} -- Getter
 	get_image(a_chess_figure: CHESS_FIGURE): EV_PIXMAP
-	local
-		l_name: STRING
-	do
-		l_name := a_chess_figure.out
-		Result := chess_figure_kingb
-		if attached l_name then
-		if l_name.is_equal ("pawnw") then
-			Result := chess_figure_pawnw
-		else if l_name.is_equal ("pawnb") then
-			Result := chess_figure_pawnb
-		else if l_name.is_equal ("rookw") then
-			Result := chess_figure_rookw
-		else if l_name.is_equal ("rookb") then
-			Result := chess_figure_rookb
-		else if l_name.is_equal ("knightw") then
-			Result := chess_figure_knightw
-		else if l_name.is_equal ("knightb") then
-			Result := chess_figure_knightb
-		else if l_name.is_equal ("bishopw") then
-			Result := chess_figure_bishopw
-		else if l_name.is_equal ("bishopb") then
-			Result := chess_figure_bishopb
-		else if l_name.is_equal ("queenw") then
-			Result := chess_figure_queenw
-		else if l_name.is_equal ("queenb") then
-			Result := chess_figure_queenb
-		else if l_name.is_equal ("kingw") then
-			Result := chess_figure_kingw
-		else if l_name.is_equal ("kingb") then
+		local
+			l_name: STRING
+		do
+			l_name := a_chess_figure.out
 			Result := chess_figure_kingb
-		end end end end end end end end end end end end
-		else
-			print("Mismatch%N")
+			if attached l_name then
+			if l_name.is_equal ("pawnw") then
+				Result := chess_figure_pawnw
+			else if l_name.is_equal ("pawnb") then
+				Result := chess_figure_pawnb
+			else if l_name.is_equal ("rookw") then
+				Result := chess_figure_rookw
+			else if l_name.is_equal ("rookb") then
+				Result := chess_figure_rookb
+			else if l_name.is_equal ("knightw") then
+				Result := chess_figure_knightw
+			else if l_name.is_equal ("knightb") then
+				Result := chess_figure_knightb
+			else if l_name.is_equal ("bishopw") then
+				Result := chess_figure_bishopw
+			else if l_name.is_equal ("bishopb") then
+				Result := chess_figure_bishopb
+			else if l_name.is_equal ("queenw") then
+				Result := chess_figure_queenw
+			else if l_name.is_equal ("queenb") then
+				Result := chess_figure_queenb
+			else if l_name.is_equal ("kingw") then
+				Result := chess_figure_kingw
+			else if l_name.is_equal ("kingb") then
+				Result := chess_figure_kingb
+			end end end end end end end end end end end end
+			else
+				print("Mismatch%N")
+			end
 		end
-	end
 
 feature {NONE} -- Initialization
 	init_chess_figures
 			-- Loads all pixmaps from the disk
-	do
-		create chess_figure_pawnw
-		chess_figure_pawnw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("pawnw")))
-		create chess_figure_pawnb
-		chess_figure_pawnb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("pawnb")))
-		create chess_figure_rookw
-		chess_figure_rookw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("rookw")))
-		create chess_figure_rookb
-		chess_figure_rookb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("rookb")))
-		create chess_figure_knightw
-		chess_figure_knightw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("knightw")))
-		create chess_figure_knightb
-		chess_figure_knightb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("knightb")))
-		create chess_figure_bishopw
-		chess_figure_bishopw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("bishopw")))
-		create chess_figure_bishopb
-		chess_figure_bishopb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("bishopb")))
-		create chess_figure_kingw
-		chess_figure_kingw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("kingw")))
-		create chess_figure_kingb
-		chess_figure_kingb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("kingb")))
-		create chess_figure_queenw
-		chess_figure_queenw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("queenw")))
-		create chess_figure_queenb
-		chess_figure_queenb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("queenb")))
-	end
+		do
+			create chess_figure_pawnw
+			chess_figure_pawnw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("pawnw")))
+			create chess_figure_pawnb
+			chess_figure_pawnb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("pawnb")))
+			create chess_figure_rookw
+			chess_figure_rookw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("rookw")))
+			create chess_figure_rookb
+			chess_figure_rookb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("rookb")))
+			create chess_figure_knightw
+			chess_figure_knightw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("knightw")))
+			create chess_figure_knightb
+			chess_figure_knightb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("knightb")))
+			create chess_figure_bishopw
+			chess_figure_bishopw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("bishopw")))
+			create chess_figure_bishopb
+			chess_figure_bishopb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("bishopb")))
+			create chess_figure_kingw
+			chess_figure_kingw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("kingw")))
+			create chess_figure_kingb
+			chess_figure_kingb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("kingb")))
+			create chess_figure_queenw
+			chess_figure_queenw.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("queenw")))
+			create chess_figure_queenb
+			chess_figure_queenb.set_with_named_file (file_system.pathname_to_string(chess_img_by_name("queenb")))
+		end
 
 feature {NONE} -- Attributes
 	chess_figure_pawnw: 	EV_PIXMAP

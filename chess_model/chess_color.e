@@ -1,6 +1,6 @@
 note
-	description: "Summary description for {CHESS_COLOR}."
-	author: ""
+	description: "A model of chess color."
+	author: "Marsel Shaihin"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -24,11 +24,22 @@ feature -- Initialization
 			Result.set_color(true)
 		end
 
-feature {ANY}-- Field
-	color: BOOLEAN -- False if this is white, true if black
-	set_color(a_color: BOOLEAN)
+feature -- Field
+	color: BOOLEAN -- True if this is black, false if white
+	set_color (a_color: BOOLEAN)
 		do
 			color := a_color
+		end
+
+feature
+	opposite: CHESS_COLOR
+			-- Returns the opposite color
+		do
+			if Current.is_equal (white) then
+				Result := black
+			else
+				Result := white
+			end
 		end
 
 feature -- Redefinition

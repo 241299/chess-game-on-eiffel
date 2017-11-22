@@ -13,95 +13,90 @@ RENAME
 	short_name as prev_s_name,
 	full_name as prev_f_name
 redefine
-	can_move, out, get_possible_moves
+	out, get_possible_moves
 end
 
 create
 	with_color_position
 
 feature -- Implementation
-	can_move (to_position: CHESS_POSITION; a_chessboard: CHESSBOARD): BOOLEAN
-		do
-			Result := get_possible_moves (a_chessboard).has (to_position)
-		end
-
 	get_possible_moves (in_chessboard: CHESSBOARD): ARRAYED_LIST[CHESS_POSITION]
 		-- A bishop can move by diagonals
-	local
-		i: INTEGER
-		l_obst_found: BOOLEAN -- Variable that is whether obstacle is encountered or not
-	do
-		create Result.make (32)
+		local
+			i: INTEGER
+			l_obst_found: BOOLEAN -- Variable that is whether obstacle is encountered or not
+		do
+			create Result.make (32)
 
-		-- Check from right down
-		from i := 1
-		until i + position.x > 8 or i + position.y > 8 or l_obst_found
-		loop
-			if attached in_chessboard.get_figure_at_xy (i + position.x, i + position.y) as l_another_figure then
-				if not l_another_figure.color.is_equal (color) then
-					Result.force (l_another_figure.position)
+			-- Check from right down
+			from i := 1
+			until i + position.x > 8 or i + position.y > 8 or l_obst_found
+			loop
+				if attached in_chessboard [i + position.x, i + position.y] as l_another_figure then
+					if not l_another_figure.color.is_equal (color) then
+						Result.force (l_another_figure.position)
+					end
+					l_obst_found := true
+				else
+					Result.force (in_chessboard (i + position.x, i + position.y))
 				end
-				l_obst_found := true
-			else
-				Result.force (in_chessboard.get_position_at_xy (i + position.x, i + position.y))
+				i := i + 1
 			end
-			i := i + 1
-		end
 
-		-- Restart iteration
-		l_obst_found := false
+			-- Restart iteration
+			l_obst_found := false
 
-		-- Check from left down
-		from i := 1
-		until position.x - i < 1 or i + position.y > 8 or l_obst_found
-		loop
-			if attached in_chessboard.get_figure_at_xy (position.x - i, i + position.y) as l_another_figure then
-				if not l_another_figure.color.is_equal (color) then
-					Result.force (l_another_figure.position)
+			-- Check from left down
+			from i := 1
+			until position.x - i < 1 or i + position.y > 8 or l_obst_found
+			loop
+				if attached in_chessboard [position.x - i, i + position.y] as l_another_figure then
+					if not l_another_figure.color.is_equal (color) then
+						Result.force (l_another_figure.position)
+					end
+					l_obst_found := true
+				else
+					Result.force (in_chessboard (position.x - i, i + position.y))
 				end
-				l_obst_found := true
-			else
-				Result.force (in_chessboard.get_position_at_xy (position.x - i, i + position.y))
+				i := i + 1
 			end
-			i := i + 1
-		end
 
-		-- Restart iteration
-		l_obst_found := false
+			-- Restart iteration
+			l_obst_found := false
 
-		-- Check from left up
-		from i := 1
-		until position.x - i < 1 or position.y - i < 1 or l_obst_found
-		loop
-			if attached in_chessboard.get_figure_at_xy (position.x - i, position.y - i) as l_another_figure then
-				if not l_another_figure.color.is_equal (color) then
-					Result.force (l_another_figure.position)
+			-- Check from left up
+			from i := 1
+			until position.x - i < 1 or position.y - i < 1 or l_obst_found
+			loop
+				if attached in_chessboard [position.x - i, position.y - i] as l_another_figure then
+					if not l_another_figure.color.is_equal (color) then
+						Result.force (l_another_figure.position)
+					end
+					l_obst_found := true
+				else
+					Result.force (in_chessboard (position.x - i, position.y - i))
 				end
-				l_obst_found := true
-			else
-				Result.force (in_chessboard.get_position_at_xy (position.x - i, position.y - i))
+				i := i + 1
 			end
-			i := i + 1
-		end
 
-		-- Restart iteration
-		l_obst_found := false
+			-- Restart iteration
+			l_obst_found := false
 
-		-- Check from right up
-		from i := 1
-		until position.x + i > 8 or position.y - i < 1 or l_obst_found
-		loop
-			if attached in_chessboard.get_figure_at_xy (position.x + i, position.y - i) as l_another_figure then
-				if not l_another_figure.color.is_equal (color) then
-					Result.force (l_another_figure.position)
+			-- Check from right up
+			from i := 1
+			until position.x + i > 8 or position.y - i < 1 or l_obst_found
+			loop
+				if attached in_chessboard [position.x + i, position.y - i] as l_another_figure then
+					if not l_another_figure.color.is_equal (color) then
+						Result.force (l_another_figure.position)
+					end
+					l_obst_found := true
+				else
+					Result.force (in_chessboard (position.x + i, position.y - i))
 				end
-				l_obst_found := true
-			else
-				Result.force (in_chessboard.get_position_at_xy (position.x + i, position.y - i))
+				i := i + 1
 			end
-			i := i + 1
 		end
-	end
 
 feature -- Redefinition
 	out: STRING
@@ -111,5 +106,4 @@ feature -- Redefinition
 feature -- Attributes
 	full_name: STRING = "bishop"
 	short_name: STRING = "B"
-
 end

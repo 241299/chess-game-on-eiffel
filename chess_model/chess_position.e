@@ -22,16 +22,16 @@ feature -- Initialization
 		y := an_y
 	end
 
-feature {CHESS_FIGURE, CHESSBOARD} -- Access
+feature {CHESS_FIGURE, CHESSBOARD, CHESSBOARD_PRESENTER} -- Access
 	x: INTEGER
 	y: INTEGER
 	chess_figure: detachable CHESS_FIGURE -- Figure standing in this position. May be Void, if position is empty
 
-feature {CHESSBOARD, CHESS_ROW} -- Setter for figure
+feature {CHESSBOARD, CHESS_ROW, CHESS_FIGURE} -- Setter for figure
 	set_chess_figure(a_figure: detachable CHESS_FIGURE)
-	do
-		chess_figure := a_figure
-	end
+		do
+			chess_figure := a_figure
+		end
 
 feature -- Getter
 	get_chess_figure: detachable CHESS_FIGURE
